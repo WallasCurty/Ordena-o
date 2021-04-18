@@ -19,30 +19,35 @@ def imprimirArquivo(nome):
 
     print(valores)
 
-def bubbleSort():
-    def ordenacao_bolha(e):
-        n = len(e)
+def converterArquivoToList(nome):
+    nome_arquivo = nome
+    arquivo = open(nome_arquivo + '.txt', 'r')
 
-        for i in range(n):
-            for f in range(0, n-1):
-                if(e[f]>e[f+1]):
-                    temp = e[f]
-                    e[f] = e[f+1]
-                    e[f+1] = temp
+    lista = arquivo.readlines()
+    listaN = []
 
-    e = eval('[' + input("Digite sua lista: ") + ']')
-    arquivo = open(nome_arquivo, 'w')
-    arquivo.write("Ordenação em bolha" + '/n')
-    arquivo.write("=== Ordenação por Bolha === \n\n\n"+"Arranjo original (não ordenado): \n"  + str(e) +"\n"+ " Novo Arranjo (Ordenado): \n" )
-    arquivo.close()
+    for i in range(len(lista)):
+        listaN.append(lista[i])
 
-    ordenacao_bolha(e)
+    return listaN
 
-    with open(nome_arquivo, 'a') as arquivo3:
-        
-        for valor3 in e:
-            arquivo3.write( str(valor3) + ',')
+def bubbleSort(arquivo):
+    nome_arquivo = arquivo
 
+    def ordenacao_bolha(lista):
+        n = len(lista)
+
+        for f in range(0, n-1):
+            if(lista[f] > lista[f+1]):
+                temp = lista[f]
+                lista[f] = lista[f+1]
+                lista[f+1] = temp
+                
+           
+    vetor = converterArquivoToList(nome_arquivo)
+    ordenacao_bolha(vetor)
+    print(vetor)
+  
 def insertionSort():
     def ordenacao_insercao(c):
         n = len(c)
@@ -59,7 +64,7 @@ def insertionSort():
 
     c = eval('[' + input("Digite sua lista: ") + ']')
     arquivo = open(nome_arquivo, 'w')
-    arquivo.write("=== Ordenação por Ircerção === \n\n\n"+"Arranjo original (não ordenado): \n" + str(c) +"\n" + " Novo Arranjo (Ordenado): \n" )
+    arquivo.write("=== Ordenação por Inserção === \n\n\n"+"Arranjo original (não ordenado): \n" + str(c) +"\n" + " Novo Arranjo (Ordenado): \n" )
     arquivo.close()
 
     ordenacao_insercao(c)
@@ -216,7 +221,8 @@ while True:
         arquivo = input("Digite o nome do arquivo que você deseja visualizar: ")
         imprimirArquivo(arquivo)
     elif opcao == 4:
-        bubbleSort()
+        nome_arquivo = input("Digite o nome do arquivo que você deseja visualizar: ")
+        bubbleSort(nome_arquivo)
     elif opcao == 5:
         insertionSort()
     elif opcao == 6:
@@ -226,7 +232,7 @@ while True:
     elif opcao == 8:
         mergeSort()
     elif opcao == 9:
-        print("Programa Finalizado.\n")
+        print("\n Programa Finalizado.")
         break
     else:
         print("Este número não está entre as alternativas! Por favor, tente novamente :D.\n")
