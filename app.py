@@ -1,3 +1,4 @@
+import random
 
 def Criar_Arq():
     
@@ -89,10 +90,104 @@ def Ord_Sel():
             arquivo1.write( str(valor1) + ',')
 
 #---------------------------------------------------------------------------------------------------
-#def Merge_Sort():
+def Merge_Sort():
+    
+    def merge(A, aux, esquerda, meio, direita):
+    
+        for k in range(esquerda, direita + 1):
+            aux[k] = A[k]
+        i = esquerda
+        j = meio + 1
+        
+        for k in range(esquerda, direita + 1):
+            if i > meio:
+                A[k] = aux[j]
+                j += 1
+            elif j > direita:
+                A[k] = aux[i]
+                i += 1
+            elif aux[j] < aux[i]:
+                A[k] = aux[j]
+                j += 1
+            else:
+                A[k] = aux[i]
+                i += 1
 
+
+    def mergesort(A, aux, esquerda, direita):
+        if direita <= esquerda:
+            return
+        meio = (esquerda + direita) // 2
+
+        mergesort(A, aux, esquerda, meio)
+        mergesort(A, aux, meio + 1, direita)
+        merge(A, aux, esquerda, meio, direita)
+
+    A  =  eval('[' + input("Digite sua lista: ") + ']')
+    arquivo = open(nome, 'w')
+    
+    arquivo.write("===Merge Sort === \n\n\n"+"Arranjo original (não ordenado): \n"  + str(A) + "\n"+" Novo Arranjo (Ordenado): \n" )
+    arquivo.close()
+
+    aux = [0] * len(A)
+    mergesort(A, aux, 0, len(A) - 1)
+    with open(nome, 'a') as arquivo1:
+        
+        for valor1 in A:
+            arquivo1.write( str(valor1) + ',')
+
+
+    
 #---------------------------------------------------------------------------------------------------
-#def Quick_Sort():
+def Quick_Sort():
+    def quickSort(A):
+        quickSortHelper(A,0,len(A)-1)
+
+    def quickSortHelper(A,primeiro,ultimo):
+        if primeiro<ultimo:
+            splitpoint = partition(A,primeiro,ultimo)
+
+            quickSortHelper(A,primeiro,splitpoint-1)
+            quickSortHelper(A,splitpoint+1,ultimo)
+
+    def partition(A,primeiro,ultimo):
+        pivot = A[primeiro]
+        leftmark = primeiro+1
+        rightmark = ultimo
+
+        done = False
+        while not done:
+
+            while leftmark <= rightmark and A[leftmark] <= pivot:
+                leftmark = leftmark + 1
+
+            while A[rightmark] >= pivot and rightmark >= leftmark:
+                rightmark = rightmark -1
+
+            if rightmark < leftmark:
+                done = True
+            else:
+                temp = A[leftmark]
+                A[leftmark] = A[rightmark]
+                A[rightmark] = temp
+
+        temp = A[primeiro]
+        A[primeiro] = A[rightmark]
+        A[rightmark] = temp
+
+        return rightmark
+
+    A  =  eval('[' + input("Digite sua lista: ") + ']')
+    arquivo = open(nome, 'w')
+    
+    arquivo.write("===Quick Sort === \n\n\n"+"Arranjo original (não ordenado): \n"  + str(A) + "\n"+" Novo Arranjo (Ordenado): \n" )
+    arquivo.close()
+
+    quickSort(A)    
+    with open(nome, 'a') as arquivo1:
+        
+        for valor1 in A:
+            arquivo1.write( str(valor1) + ',')
 
 #---------------------------------------------------------------------------------------------------
 
@@ -129,7 +224,7 @@ while menu:
     elif opcao == 6:
         Ord_Sel()
     elif opcao == 7:
-        Ord_Sel()
+        Quick_Sort()
     elif opcao == 8:
         Merge_Sort()
     elif opcao == 9:
