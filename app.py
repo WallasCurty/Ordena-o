@@ -1,22 +1,25 @@
 import random
 
-def Criar_Arq():
+def criarArquivo():
+    valores = eval(input("Digite sua lista em sequência, por exemplo -> 1, 4, 6: "))
+    arquivo = open(nome_arquivo + '.txt', 'w')
     
-    a = eval('[' + input("Digite sua lista: ") + ']')
-    arquivo = open(nome, 'w')
-    
-    arquivo.write("Sua lista de elementos foi: \n"  + str(a) )
+    arquivo.write(str(valores) )
     arquivo.close()
-#---------------------------------------------------------------------------------------------------
-def Imprimir():
 
-    arquivo = open(nome, 'r')
+def imprimirArquivo(nome):
+    nome_arquivo = nome
 
-    print(arquivo.readline())
-    arquivo.close
-#---------------------------------------------------------------------------------------------------
+    arquivo = open(nome_arquivo + '.txt', 'r')
+    a = arquivo.readlines()
+    valores = []
 
-def Ord_Bol():
+    for i in range(len(a)):
+        valores.append(a[i])
+
+    print(valores)
+
+def bubbleSort():
     def ordenacao_bolha(e):
         n = len(e)
 
@@ -28,21 +31,20 @@ def Ord_Bol():
                     e[f+1] = temp
 
     e = eval('[' + input("Digite sua lista: ") + ']')
-    arquivo = open(nome, 'w')
+    arquivo = open(nome_arquivo, 'w')
     arquivo.write("Ordenação em bolha" + '/n')
     arquivo.write("=== Ordenação por Bolha === \n\n\n"+"Arranjo original (não ordenado): \n"  + str(e) +"\n"+ " Novo Arranjo (Ordenado): \n" )
     arquivo.close()
 
     ordenacao_bolha(e)
 
-    with open(nome, 'a') as arquivo3:
+    with open(nome_arquivo, 'a') as arquivo3:
         
         for valor3 in e:
             arquivo3.write( str(valor3) + ',')
 
-#---------------------------------------------------------------------------------------------------
-def Ord_In():
-    def ordenacao_incercao(c):
+def insertionSort():
+    def ordenacao_insercao(c):
         n = len(c)
 
         for d in range(1,n):
@@ -52,22 +54,22 @@ def Ord_In():
             while i >= 0 and c[i]> chave:
                 c[i + 1] = c[i]
                 i = i - 1
+
             c[i+1] = chave
 
     c = eval('[' + input("Digite sua lista: ") + ']')
-    arquivo = open(nome, 'w')
+    arquivo = open(nome_arquivo, 'w')
     arquivo.write("=== Ordenação por Ircerção === \n\n\n"+"Arranjo original (não ordenado): \n" + str(c) +"\n" + " Novo Arranjo (Ordenado): \n" )
     arquivo.close()
 
-    ordenacao_incercao(c)
+    ordenacao_insercao(c)
 
-    with open(nome, 'a') as arquivo2:
+    with open(nome_arquivo, 'a') as arquivo2:
         
         for valor2 in c:
             arquivo2.write( str(valor2) + ',')
 
-#---------------------------------------------------------------------------------------------------
-def Ord_Sel():
+def selectionSort():
     def ordenacao_selecao(a):
         n = len(a)
         for i in range(n):
@@ -75,23 +77,24 @@ def Ord_Sel():
             for b in range(i + 1, n):
                 if a[minimo] > a[b]:
                     minimo = b
+
             a[i], a[minimo] = a[minimo], a[i]
     
-    arquivo = open(nome, 'w')
+    
+    a = eval('[' + input("Digite sua lista: ") + ']')
+    arquivo = open(nome_arquivo, 'w')
     
     arquivo.write("===Ordenação por Seleção === \n\n\n"+"Arranjo original (não ordenado): \n"  + str(a) + "\n"+" Novo Arranjo (Ordenado): \n" )
     arquivo.close()
 
     ordenacao_selecao(a)
 
-    with open(nome, 'a') as arquivo1:
+    with open(nome_arquivo, 'a') as arquivo1:
         
         for valor1 in a:
             arquivo1.write( str(valor1) + ',')
 
-#---------------------------------------------------------------------------------------------------
-def Merge_Sort():
-    
+def mergeSort():
     def merge(A, aux, esquerda, meio, direita):
     
         for k in range(esquerda, direita + 1):
@@ -124,23 +127,21 @@ def Merge_Sort():
         merge(A, aux, esquerda, meio, direita)
 
     A  =  eval('[' + input("Digite sua lista: ") + ']')
-    arquivo = open(nome, 'w')
+    arquivo = open(nome_arquivo, 'w')
     
     arquivo.write("===Merge Sort === \n\n\n"+"Arranjo original (não ordenado): \n"  + str(A) + "\n"+" Novo Arranjo (Ordenado): \n" )
     arquivo.close()
 
     aux = [0] * len(A)
     mergesort(A, aux, 0, len(A) - 1)
-    with open(nome, 'a') as arquivo1:
+    with open(nome_arquivo, 'a') as arquivo1:
         
         for valor1 in A:
             arquivo1.write( str(valor1) + ',')
 
 
-    
-#---------------------------------------------------------------------------------------------------
-def Quick_Sort():
-    def quickSort(A):
+def quickSort():
+    def quick_sort(A):
         quickSortHelper(A,0,len(A)-1)
 
     def quickSortHelper(A,primeiro,ultimo):
@@ -178,58 +179,55 @@ def Quick_Sort():
         return rightmark
 
     A  =  eval('[' + input("Digite sua lista: ") + ']')
-    arquivo = open(nome, 'w')
+    arquivo = open(nome_arquivo, 'w')
     
     arquivo.write("===Quick Sort === \n\n\n"+"Arranjo original (não ordenado): \n"  + str(A) + "\n"+" Novo Arranjo (Ordenado): \n" )
     arquivo.close()
 
-    quickSort(A)    
-    with open(nome, 'a') as arquivo1:
+    quick_sort(A)    
+    with open(nome_arquivo, 'a') as arquivo1:
         
         for valor1 in A:
             arquivo1.write( str(valor1) + ',')
 
-#---------------------------------------------------------------------------------------------------
+#Programa Principal
+opcao = 0
+while True:
+    print(" ============[ Menu Principal ]============")
+    print("1) Criar arquivo de dados")
+    print("2) Alterar arquivo de dados")
+    print("3) Imprimir arquivo de dados")
+    print("4) Bubble Sort")
+    print("5) Insertion Sort")
+    print("6) Selection Sort")
+    print("7) Quick Sort")
+    print("8) Merge Sort")
+    print("9) Finalizar o programa")
 
-menu=True
-while menu:
-    opcao=int(input('''
-        
-        ============[ Menu Inicial ]============
-        
-            1) Criar arquivo de dados
-            2) Alterar arquivo de dados
-            3) Imprimir arquivo de dados
-            4) Bubble Sort
-            5) Insertion Sort
-            6) Selection Sort
-            7) Quick Sort
-            8) Merge Sort
-            9) Finalizar o programa
-            
-            Escolha a opção desejada: '''))
+    opcao = int(input("Digite a opção desejada: "))
     
-    nome=input("Digite o nome do arquivo: ")
-
+    
     if opcao == 1:
-        Criar_Arq()
-    elif opcao == 2:
-        Ord_In()
+        nome_arquivo = input("Digite um nome para o arquivo que deseja criar: ")
+        criarArquivo()
+    #elif opcao == 2:
+       
     elif opcao == 3:
-        Imprimir()
+        arquivo = input("Digite o nome do arquivo que você deseja visualizar: ")
+        imprimirArquivo(arquivo)
     elif opcao == 4:
-        Ord_Bol()
+        bubbleSort()
     elif opcao == 5:
-        Ord_In()
+        insertionSort()
     elif opcao == 6:
-        Ord_Sel()
+        selectionSort()
     elif opcao == 7:
-        Quick_Sort()
+        quickSort()
     elif opcao == 8:
-        Merge_Sort()
+        mergeSort()
     elif opcao == 9:
         print("Programa Finalizado.\n")
         break
     else:
-        print("Este número não está nas alternativas, tente novamente :D.\n")
+        print("Este número não está entre as alternativas! Por favor, tente novamente :D.\n")
         
